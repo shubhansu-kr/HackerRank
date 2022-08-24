@@ -22,6 +22,10 @@ int main () {
     for (int i = 0; i < N; ++i)
     {
         cin >> Arr[i]; 
+        if (Arr[i] > 1e5) {
+            cout << "Invalid Input" << endl;
+        }
+        return 0;
     }
     
     for (int i = 1; i < N; ++i)
