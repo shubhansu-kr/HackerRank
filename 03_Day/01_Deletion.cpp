@@ -5,22 +5,32 @@ using namespace std ;
 
 int main () {
     
-    int *Arr = new int[10];
-    for (int i = 0; i < 10; ++i)
-    {
-        cin >> Arr[i]; 
-    }
-    int x; 
-    cin >> x ;
+    int N;
+    cin >> N; 
 
-    for (int i = 0; i < 10; ++i)
+    int *Arr = new int[N];
+    for (int i = 0; i < N; ++i)
     {
-        if (x == Arr[i]) {
-            cout << i + 1 << endl;
-            return 0;
-        }
+        cin >> Arr[i];
     }
-    cout << "ELEMENTS NOT FOUND";
     
+    int ind; 
+    cin >> ind;
+
+    if (ind < 0 || ind >= N) {
+        cout << "Invalid Input";
+        return 0;
+    }
+
+    for (int i = ind; i < N-1; ++i)
+    {
+        Arr[i] = Arr[i+1];
+    }
+    --N;
+    for (int i = 0; i < N; ++i)
+    {
+        cout << Arr[i];
+    }
+    cout << endl;
     return 0;
 }
