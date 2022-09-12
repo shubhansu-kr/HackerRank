@@ -1,3 +1,29 @@
+// 
+
+#include <bits/stdc++.h>
+using namespace std ;
+
+void searchingChallenge(char* str) {
+    int sum = 0, num = 0;
+    for (int i = 0; str[i] != '\0'; ++i)
+    {
+        if(str[i] >= '0' && str[i] <= '9') {
+            num = num * 10 + (str[i]-'0');
+        }
+        else {
+            sum += num;
+            num = 0;
+        }
+    }
+    sum += num;
+    cout << sum << endl;
+}
+
+int main () {
+    searchingChallenge("55 423 sfhi 90");
+    return 0;
+}
+
 // // Test Section
 
 // #include <stdio.h>
