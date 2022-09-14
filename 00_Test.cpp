@@ -1,28 +1,94 @@
-// 
+// https://www.hackerrank.com/contests/cse205-16915-day18/challenges/linked-list-insertion-2-16920
 
 #include <bits/stdc++.h>
-using namespace std ;
+using namespace std;
 
-void searchingChallenge(char* str) {
-    int sum = 0, num = 0;
-    for (int i = 0; str[i] != '\0'; ++i)
-    {
-        if(str[i] >= '0' && str[i] <= '9') {
-            num = num * 10 + (str[i]-'0');
-        }
-        else {
-            sum += num;
-            num = 0;
-        }
+struct Node
+{
+    int val;
+    Node *next;
+};
+
+Node *insertElement(Node *head, int &x)
+{
+    if (!head)
+        return head;
+    int isOdd = x % 2;
+
+    Node *p = head, *last = nullptr;
+    Node *node = new Node();
+    node->val = x;
+    if (isOdd){while (p && p->val % 2 && p->val < x){last = p;p = p->next;}}
+    else{
+        while (p && p->val % 2){last = p;p = p->next;}
+        while (p && p->val > x){last = p;p = p->next;}
     }
-    sum += num;
-    cout << sum << endl;
+    if (last){last->next = node,node->next = p;}
+    else{node->next = head,head = node;}
+    return head;
 }
 
-int main () {
-    searchingChallenge("55 423 sfhi 90");
+int main()
+{
+    int len, data;
+    cin >>  len;
+    Node *head = nullptr, *last = nullptr;
+    while ( len != 0)
+    {
+        cin >> data;
+        Node *p = new Node();
+        p->val = data;
+        if (head != nullptr){last->next = p, last = p;}
+        else{head = p, last = head;}
+        len = len - 1;
+    }
+
+    int x;
+    cin >> x;
+
+    Node *p = head;
+    while (p != nullptr)
+    {
+        if (p->val == x){cout << "Duplicates are not allowed" << endl;return 0;}
+        p = p->next;
+    }
+    head = insertElement(head, x);
+
+    p = head;
+    while(p) {
+        cout << p->val << " ";
+        p = p->next;
+    }
+    
     return 0;
 }
+
+
+// // 
+
+// #include <bits/stdc++.h>
+// using namespace std ;
+
+// void searchingChallenge(char* str) {
+//     int sum = 0, num = 0;
+//     for (int i = 0; str[i] != '\0'; ++i)
+//     {
+//         if(str[i] >= '0' && str[i] <= '9') {
+//             num = num * 10 + (str[i]-'0');
+//         }
+//         else {
+//             sum += num;
+//             num = 0;
+//         }
+//     }
+//     sum += num;
+//     cout << sum << endl;
+// }
+
+// int main () {
+//     searchingChallenge("55 423 sfhi 90");
+//     return 0;
+// }
 
 // // Test Section
 
