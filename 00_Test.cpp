@@ -1,70 +1,170 @@
+// #include <cmath>
+// #include <cstdio>
+// #include <vector>
+// #include <iostream>
+// #include <algorithm>
+// using namespace std;
+// struct node
+// {
+//     int data;
+//     node *next;
+//     node(int d)
+//     {
+//         data = d;
+//         next = NULL;
+//     }
+// };
+// void addn(node *&tail, int x)
+// {
+//     node *temp = new node(x);
+//     tail->next = temp;
+//     tail = temp;
+// }
+// void check(node *curr)
+// {
+//     node *c1 = curr;
+//     curr = curr->next;
+//     if (c1->next->data == curr->next->data)
+//     {
+//         int a = c1->data + curr->next->next->data;
+//         node *temp = new node(a);
+//         temp->next = curr->next;
+//         curr->next = temp;
+//     }
+// }
+// void insert(node *&head)
+// {
+//     node *curr = head;
+//     node *prev = head;
+//     curr = curr->next;
+//     //         if (prev->data==curr->data){
+//     //             int a=curr->next->data;
+//     //             node* temp=new node(a);
+//     //             temp->next=curr;
+//     //             prev->next=temp;
+
+//     //         }
+//     while (curr->next != NULL)
+//     {
+//         if (prev->next->data == curr->next->data)
+//         {
+//             int a = prev->data + curr->next->next->data;
+//             check(curr);
+//             node *temp = new node(a);
+//             temp->next = curr->next;
+//             curr->next = temp;
+//             a = 0;
+//         }
+//         prev = curr;
+//         curr = curr->next;
+//     }
+// }
+// void print(node *&head)
+// {
+//     node *curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->data << " ";
+//         curr = curr->next;
+//     }
+// }
+// int main()
+// {
+//     int n;
+//     cin >> n;
+//     if (false)
+//     {
+//         cout << "Invalid Input";
+//     }
+//     else
+//     {
+//         int x;
+//         cin >> x;
+//         node *head = new node(x);
+//         node *tail = head;
+//         n = n - 1;
+//         while (n--)
+//         {
+//             cout << n << ": ";
+//             cin >> x;
+//             addn(tail, x);  
+//         }
+//         int z;
+//         cin >> z;
+//         print(head);
+//         cout << endl;
+//         insert(head);
+//         print(head);
+//     }
+//     return 0;
+// }
+
 // https://www.hackerrank.com/contests/cse205-16915-day18/challenges/linked-list-insertion-2-16920
 
-#include <bits/stdc++.h>
-using namespace std;
+// #include <bits/stdc++.h>
+// using namespace std;
 
-struct Node
-{
-    int val;
-    Node *next;
-};
+// struct Node
+// {
+//     int val;
+//     Node *next;
+// };
 
-Node *insertElement(Node *head, int &x)
-{
-    if (!head)
-        return head;
-    int isOdd = x % 2;
+// Node *insertElement(Node *head, int &x)
+// {
+//     if (!head)
+//         return head;
+//     int isOdd = x % 2;
 
-    Node *p = head, *last = nullptr;
-    Node *node = new Node();
-    node->val = x;
-    if (isOdd){while (p && p->val % 2 && p->val < x){last = p;p = p->next;}}
-    else{
-        while (p && p->val % 2){last = p;p = p->next;}
-        while (p && p->val > x){last = p;p = p->next;}
-    }
-    if (last){last->next = node,node->next = p;}
-    else{node->next = head,head = node;}
-    return head;
-}
+//     Node *p = head, *last = nullptr;
+//     Node *node = new Node();
+//     node->val = x;
+//     if (isOdd){while (p && p->val % 2 && p->val < x){last = p;p = p->next;}}
+//     else{
+//         while (p && p->val % 2){last = p;p = p->next;}
+//         while (p && p->val > x){last = p;p = p->next;}
+//     }
+//     if (last){last->next = node,node->next = p;}
+//     else{node->next = head,head = node;}
+//     return head;
+// }
 
-int main()
-{
-    int len, data;
-    cin >>  len;
-    Node *head = nullptr, *last = nullptr;
-    while ( len != 0)
-    {
-        cin >> data;
-        Node *p = new Node();
-        p->val = data;
-        if (head != nullptr){last->next = p, last = p;}
-        else{head = p, last = head;}
-        len = len - 1;
-    }
+// int main()
+// {
+//     int len, data;
+//     cin >>  len;
+//     Node *head = nullptr, *last = nullptr;
+//     while ( len != 0)
+//     {
+//         cin >> data;
+//         Node *p = new Node();
+//         p->val = data;
+//         if (head != nullptr){last->next = p, last = p;}
+//         else{head = p, last = head;}
+//         len = len - 1;
+//     }
 
-    int x;
-    cin >> x;
+//     int x;
+//     cin >> x;
 
-    Node *p = head;
-    while (p != nullptr)
-    {
-        if (p->val == x){cout << "Duplicates are not allowed" << endl;return 0;}
-        p = p->next;
-    }
-    head = insertElement(head, x);
+//     Node *p = head;
+//     while (p != nullptr)
+//     {
+//         if (p->val == x){cout << "Duplicates are not allowed" << endl;return 0;}
+//         p = p->next;
+//     }
+//     head = insertElement(head, x);
 
-    p = head;
-    while(p) {
-        cout << p->val << " ";
-        p = p->next;
-    }
-    
-    return 0;
-}
+//     p = head;
+//     while(p) {
+//         cout << p->val << " ";
+//         p = p->next;
+//     }
 
+//     return 0;
+// }
 
-// // 
+// //
 
 // #include <bits/stdc++.h>
 // using namespace std ;
@@ -156,7 +256,6 @@ int main()
 //   return 0;
 // }
 
-
 // #include <bits/stdc++.h>
 // using namespace std ;
 
@@ -183,12 +282,12 @@ int main()
 //             Arr[i] = -2;
 //         }
 //     }
-    
+
 //     for (int i = 0; i < Arr.size(); ++i)
 //     {
 //         cout << Arr[i] << endl;
 //     }
-    
+
 //     return 0;
 // }
 
