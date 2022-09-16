@@ -37,7 +37,7 @@ ListNode *operate(ListNode *head) {
                 if (p1->next) x += p1->next->val;
                 ListNode *q = new ListNode(x);
                 p2->next = q;
-                p2->next = p1;
+                q->next = p1;
             }
             else {
                 ListNode *q = new ListNode(p1->next->val);
