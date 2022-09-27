@@ -26,33 +26,33 @@ ListNode *createList () {
 
 ListNode *insertItem(ListNode *head, int item) {
     ListNode *q = new ListNode(item);
-    if (!head) {return q;}
-
+    
+    if (!head) return q;
     ListNode *p = head;
-    while(p->next && p->val < item) {
-        p = p->next;
-    }
-    if (p->val == item) return head;
-    if (p == head) {
-        if (p->val > item) {
-            q->next = head;
-            head->prev = q;
-            head = q;
-        }
-        else {
-            p->next = q;
-            q->prev = p;
-        }
+    if (item < p->val) {
+        q->next = p;
+        p->prev = q;
+        return q;
     }
     if (p->next == nullptr) {
         p->next = q;
         q->prev = p;
+        return p;
+    }
+    while(p->next && p->val < item) {
+        p = p->next;
     }
 
-    q->next = p;
-    q->prev = p->prev;
-    p->prev->next = q;
-    p->prev = q;
+    if (p->val < item) {
+        p->next = q;
+        q->prev = p;
+    }
+    else {
+        q->next = p;
+        q->prev = p->prev;
+        p->prev->next = q;
+        p->prev = q;
+    }
 
     return head;
 }
@@ -68,10 +68,14 @@ void traverse(ListNode *head) {
 }
 
 int main () {
-    ListNode *head = createList();
-    int item;
-    cin >> item;
-    head = insertItem(head, item);
-    traverse(head);
+    int t; 
+    cin >> t ;
+    while(t--) {
+        ListNode *head = createList();
+        int item;
+        cin >> item;
+        head = insertItem(head, item);
+        traverse(head);
+    }
     return 0;
 }
