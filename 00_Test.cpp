@@ -1,46 +1,202 @@
+// https://www.hackerrank.com/contests/cse205-16915-day17/challenges/twowaylinkedlistdeletion1
+
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node
+{
+    int val;
+    Node *next, *prev;
+    Node() : val(0), next(nullptr), prev(nullptr) {}
+    Node(int val) : val(val), next(nullptr), prev(nullptr) {}
+    Node(int val, Node *next, Node *prev) : val(val), next(next), prev(prev) {}
+};
+
+int main()
+{
+    int N;
+    cin >> N;
+    if (N < 3 || N > 20)
+    {
+        cout << "Invalid list size" << endl;
+        return 0;
+    };
+    int x;
+    Node *head = nullptr, *prev = nullptr;
+    while (N--)
+    {
+        cin >> x;
+        Node *p = new Node(x);
+        if (head != nullptr)
+        {
+            prev->next = p, p->prev = prev, prev = p;
+        }
+        else
+        {
+            head = p, prev = head;
+        }
+    }
+
+    cin >> x;
+
+    int count = 0;
+    Node *run = head;
+    while (run)
+    {
+        if (run->val == x)
+            ++count;
+        run = run->next;
+    }
+    if (count < 2)
+    {
+        cout << "Deletion not possible" << endl;
+        return 0;
+    }
+
+    Node *p = head, *target = nullptr, *target1 = nullptr;
+    while (p)
+    {
+        if (p->val == x)
+        {
+            target = target1;
+            target1 = p;
+        }
+        p = p->next;
+    }
+    p = target->prev, target1 = target->next;
+    if (p)
+    {
+        p->next = target1;
+        target1->prev = p;
+    }
+    else
+    {
+        head = head->next;
+    }
+    delete (target);
+    target = nullptr;
+
+    p = head;
+    while (p->next)
+    {
+        p = p->next;
+    }
+    while (p)
+    {
+        cout << p->val << endl;
+        p = p->prev;
+    }
+
+    return 0;
+}
+
+// https://www.hackerrank.com/contests/cse205-16915-day22/challenges/linked-list-deletion-1-16915
+
+// #include <bits/stdc++.h>
+// using namespace std ;
+
+// struct Node {
+//     int val;
+//     Node * next;
+//     Node():val(0), next(nullptr){}
+//     Node(int val):val(val), next(nullptr){}
+//     Node(int val, Node *next):val(val), next(next){}
+// };
+
+// int main () {
+//     int x;
+//     cin >> x;
+//     Node * head = nullptr, *prev = nullptr;
+//     while (x != -1) {
+//         Node *p = new Node(x);
+//         if (head != nullptr) {prev->next = p,prev = p;}
+//         else {head = p,prev = head;}
+//         cin >> x ;
+//     }
+//     int flag = 1;
+//     Node *p = head;
+//     while(p) {
+//         if (p->val % 2){
+//             flag = 0;
+//             break;
+//         }
+//         p = p->next;
+//     }
+//     if (flag) {
+//         cout << "No odd number present" << endl;
+//         return 0;
+//     }
+
+//     flag = 1;
+//     while(flag) {
+//         flag = 0;
+//         p = head, prev = nullptr;
+//         while(p){
+//             if (p->val % 2) {
+//                 flag = 1;
+//                 break;
+//             }
+//             prev = p;
+//             p = p->next;
+//         }
+//         if (!flag) continue;
+//         if (prev) {prev->next = p->next;}
+//         else {head = head->next;}
+//         delete(p);
+//         p = nullptr;
+//     }
+//     p = head;
+//     while(p) {
+//         cout << p->val << " ";
+//         p = p->next;
+//     }
+//     cout << "\n";
+//     return 0;
+// }
+
 // https://www.hackerrank.com/contests/cse205-16915-day19/challenges
 
 // #include <bits/stdc++.h>
 // using namespace std ;
 
-// struct ListNode {
+// struct Node {
 //     int val;
-//     ListNode * next;
-//     ListNode():val(0), next(nullptr){}
-//     ListNode(int val):val(val), next(nullptr){}
-//     ListNode(int val, ListNode *next):val(val), next(next){}
+//     Node * next;
+//     Node():val(0), next(nullptr){}
+//     Node(int val):val(val), next(nullptr){}
+//     Node(int val, Node *next):val(val), next(next){}
 // };
 
-// ListNode *createList () {
+// Node *createList () {
 //     int n, x;
 //     cin >> n;
 //     if (n < 6 || n > 9) return nullptr;
-//     ListNode * head = nullptr, *prev = nullptr;
+//     Node * head = nullptr, *prev = nullptr;
 //     while (n--) {
 //         cin >> x ;
-//         ListNode *p = new ListNode(x);
+//         Node *p = new Node(x);
 //         if (head != nullptr) {prev->next = p,prev = p;}
 //         else {head = p,prev = head;}
 //     }
 //     return head;
 // }
 
-// // Let's consider all the cased 
-// ListNode *operate(ListNode *head) {
+// // Let's consider all the cased
+// Node *operate(Node *head) {
 //     if (!head || !head->next) return head;
-//     ListNode *p1 = head->next, *p2 = head, *prev = nullptr;
+//     Node *p1 = head->next, *p2 = head, *prev = nullptr;
 
 //     while(p1) {
 //         if (p1->val == p2->val) {
 //             if(prev) {
 //                 int x = prev->val;
 //                 if (p1->next) x += p1->next->val;
-//                 ListNode *q = new ListNode(x);
+//                 Node *q = new Node(x);
 //                 p2->next = q;
 //                 q->next = p1;
 //             }
 //             else {
-//                 ListNode *q = new ListNode(p1->next->val);
+//                 Node *q = new Node(p1->next->val);
 //                 p2->next = q;
 //                 q->next = p1;
 //             }
@@ -52,7 +208,6 @@
 //     return head;
 // }
 
-
 // int main () {
 //     int n;
 //     cin >> n;
@@ -62,22 +217,22 @@
 //         return 0;
 //     }
 //     int x;
-//     ListNode * head = nullptr, *prev = nullptr;
+//     Node * head = nullptr, *prev = nullptr;
 //     while (n--) {
 //         cin >> x ;
-//         ListNode *p = new ListNode(x);
+//         Node *p = new Node(x);
 //         if (head != nullptr) {prev->next = p,prev = p;}
 //         else {head = p,prev = head;}
 //     }
 
-//     ListNode *q = head;
+//     Node *q = head;
 //     while(q) {
 //         cout << q->val << " ";
 //         q = q->next;
 //     }
 //     head = operate(head);
-//     ListNode *p = head;
-//     cout << endl; 
+//     Node *p = head;
+//     cout << endl;
 //     while(p){
 //         cout << p->val << " ";
 //         p = p->next;
@@ -174,7 +329,7 @@
 //         {
 //             cout << n << ": ";
 //             cin >> x;
-//             addn(tail, x);  
+//             addn(tail, x);
 //         }
 //         int z;
 //         cin >> z;
