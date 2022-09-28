@@ -1,94 +1,190 @@
+// https://www.hackerrank.com/contests/cse205-16915-day23/challenges/linkedlist-deletion-1-28066
+
+// #include <bits/stdc++.h>
+// using namespace std ;
+
+// struct node {
+//     int val;
+//     node * next;
+//     node():val(0), next(nullptr){}
+//     node(int val):val(val), next(nullptr){}
+// };
+
+// int main () {
+//     int n, x;
+//     cin >> n;
+//     node * head = nullptr, *prev = nullptr;
+//     while (n--) {
+//         cin >> x ;
+//         node *p = new node(x);
+//         if (head != nullptr) {prev->next = p,prev = p;}
+//         else {head = p,prev = head;}
+//     }
+//     node *target, *last, *p = head;
+//     prev = nullptr;
+//     int mini = -1;
+//     while(p) {
+//         if (p->val > mini) {
+//             mini = p->val;
+//             target = p;
+//             last = prev;
+//         }
+//         prev = p;
+//         p = p->next;
+//     }
+//     if(last) {last->next = target->next;}
+//     else {head = head->next;} 
+//     delete(target);
+ 
+//     p = head;
+//     while(p) {
+//         cout << p->val << " ";
+//         p = p->next;
+//     }
+//     cout << "\n";
+
+//     return 0;
+// }
+
+// https://www.hackerrank.com/contests/cse205-16915-day23/challenges/circularlinkedlist-2-26108
+
+// #include <bits/stdc++.h>
+// using namespace std ;
+
+// struct node {
+//     int data;
+//     node * next;
+//     node():data(0), next(nullptr){}
+//     node(int data):data(data), next(nullptr){}
+// };
+
+// int main () {
+//     int n, x;
+//     cin >> n;
+//     node * head = nullptr, *prev = nullptr;
+//     while (n--) {
+//         cin >> x ;
+//         node *p = new node(x);
+//         if (head != nullptr) {prev->next = p,prev = p;}
+//         else {head = p,prev = head;}
+//     }
+
+//     node *a = nullptr, *b = nullptr;
+//     node *p = head;
+//     while(p) {
+//         if (p->data % 2 == 0) {
+//             if (a != nullptr) {b->next = p,b = p;}
+//             else {a = p,b = a;}
+//         }
+//         p = p->next;
+//     }
+
+//     p = a;
+//     while(p) {
+//         p = p->next;
+//         b = a;
+//         while(b && b != p) {
+//             cout << b->data << " ";
+//             b = b->next;
+//         }
+//         cout << "\n";
+//     }
+
+//     return 0;
+// }
+
+
 // https://www.hackerrank.com/contests/cse205-16915-day17/challenges/twowaylinkedlistdeletion1
 
-#include <bits/stdc++.h>
-using namespace std;
+// #include <bits/stdc++.h>
+// using namespace std;
 
-struct Node
-{
-    int val;
-    Node *next, *prev;
-    Node() : val(0), next(nullptr), prev(nullptr) {}
-    Node(int val) : val(val), next(nullptr), prev(nullptr) {}
-    Node(int val, Node *next, Node *prev) : val(val), next(next), prev(prev) {}
-};
+// struct Node
+// {
+//     int data;
+//     Node *next, *prev;
+//     Node() : data(0), next(nullptr), prev(nullptr) {}
+//     Node(int data) : data(data), next(nullptr), prev(nullptr) {}
+//     Node(int data, Node *next, Node *prev) : data(data), next(next), prev(prev) {}
+// };
 
-int main()
-{
-    int N;
-    cin >> N;
-    if (N < 3 || N > 20)
-    {
-        cout << "Invalid list size" << endl;
-        return 0;
-    };
-    int x;
-    Node *head = nullptr, *prev = nullptr;
-    while (N--)
-    {
-        cin >> x;
-        Node *p = new Node(x);
-        if (head != nullptr)
-        {
-            prev->next = p, p->prev = prev, prev = p;
-        }
-        else
-        {
-            head = p, prev = head;
-        }
-    }
+// int main()
+// {
+//     int N;
+//     cin >> N;
+//     if (N < 3 || N > 20)
+//     {
+//         cout << "Invalid list size" << endl;
+//         return 0;
+//     };
+//     int x;
+//     Node *head = nullptr, *prev = nullptr;
+//     while (N--)
+//     {
+//         cin >> x;
+//         Node *p = new Node(x);
+//         if (head != nullptr)
+//         {
+//             prev->next = p, p->prev = prev, prev = p;
+//         }
+//         else
+//         {
+//             head = p, prev = head;
+//         }
+//     }
 
-    cin >> x;
+//     cin >> x;
 
-    int count = 0;
-    Node *run = head;
-    while (run)
-    {
-        if (run->val == x)
-            ++count;
-        run = run->next;
-    }
-    if (count < 2)
-    {
-        cout << "Deletion not possible" << endl;
-        return 0;
-    }
+//     int count = 0;
+//     Node *run = head;
+//     while (run)
+//     {
+//         if (run->data == x)
+//             ++count;
+//         run = run->next;
+//     }
+//     if (count < 2)
+//     {
+//         cout << "Deletion not possible" << endl;
+//         return 0;
+//     }
 
-    Node *p = head, *target = nullptr, *target1 = nullptr;
-    while (p)
-    {
-        if (p->val == x)
-        {
-            target = target1;
-            target1 = p;
-        }
-        p = p->next;
-    }
-    p = target->prev, target1 = target->next;
-    if (p)
-    {
-        p->next = target1;
-        target1->prev = p;
-    }
-    else
-    {
-        head = head->next;
-    }
-    delete (target);
-    target = nullptr;
+//     Node *p = head, *target = nullptr, *target1 = nullptr;
+//     while (p)
+//     {
+//         if (p->data == x)
+//         {
+//             target = target1;
+//             target1 = p;
+//         }
+//         p = p->next;
+//     }
+//     p = target->prev, target1 = target->next;
+//     if (p)
+//     {
+//         p->next = target1;
+//         target1->prev = p;
+//     }
+//     else
+//     {
+//         head = head->next;
+//     }
+//     delete (target);
+//     target = nullptr;
 
-    p = head;
-    while (p->next)
-    {
-        p = p->next;
-    }
-    while (p)
-    {
-        cout << p->val << endl;
-        p = p->prev;
-    }
+//     p = head;
+//     while (p->next)
+//     {
+//         p = p->next;
+//     }
+//     while (p)
+//     {
+//         cout << p->data << endl;
+//         p = p->prev;
+//     }
 
-    return 0;
-}
+//     return 0;
+// }
 
 // https://www.hackerrank.com/contests/cse205-16915-day22/challenges/linked-list-deletion-1-16915
 
@@ -96,11 +192,11 @@ int main()
 // using namespace std ;
 
 // struct Node {
-//     int val;
+//     int data;
 //     Node * next;
-//     Node():val(0), next(nullptr){}
-//     Node(int val):val(val), next(nullptr){}
-//     Node(int val, Node *next):val(val), next(next){}
+//     Node():data(0), next(nullptr){}
+//     Node(int data):data(data), next(nullptr){}
+//     Node(int data, Node *next):data(data), next(next){}
 // };
 
 // int main () {
@@ -116,7 +212,7 @@ int main()
 //     int flag = 1;
 //     Node *p = head;
 //     while(p) {
-//         if (p->val % 2){
+//         if (p->data % 2){
 //             flag = 0;
 //             break;
 //         }
@@ -132,7 +228,7 @@ int main()
 //         flag = 0;
 //         p = head, prev = nullptr;
 //         while(p){
-//             if (p->val % 2) {
+//             if (p->data % 2) {
 //                 flag = 1;
 //                 break;
 //             }
@@ -147,7 +243,7 @@ int main()
 //     }
 //     p = head;
 //     while(p) {
-//         cout << p->val << " ";
+//         cout << p->data << " ";
 //         p = p->next;
 //     }
 //     cout << "\n";
@@ -160,11 +256,11 @@ int main()
 // using namespace std ;
 
 // struct Node {
-//     int val;
+//     int data;
 //     Node * next;
-//     Node():val(0), next(nullptr){}
-//     Node(int val):val(val), next(nullptr){}
-//     Node(int val, Node *next):val(val), next(next){}
+//     Node():data(0), next(nullptr){}
+//     Node(int data):data(data), next(nullptr){}
+//     Node(int data, Node *next):data(data), next(next){}
 // };
 
 // Node *createList () {
@@ -187,16 +283,16 @@ int main()
 //     Node *p1 = head->next, *p2 = head, *prev = nullptr;
 
 //     while(p1) {
-//         if (p1->val == p2->val) {
+//         if (p1->data == p2->data) {
 //             if(prev) {
-//                 int x = prev->val;
-//                 if (p1->next) x += p1->next->val;
+//                 int x = prev->data;
+//                 if (p1->next) x += p1->next->data;
 //                 Node *q = new Node(x);
 //                 p2->next = q;
 //                 q->next = p1;
 //             }
 //             else {
-//                 Node *q = new Node(p1->next->val);
+//                 Node *q = new Node(p1->next->data);
 //                 p2->next = q;
 //                 q->next = p1;
 //             }
@@ -227,14 +323,14 @@ int main()
 
 //     Node *q = head;
 //     while(q) {
-//         cout << q->val << " ";
+//         cout << q->data << " ";
 //         q = q->next;
 //     }
 //     head = operate(head);
 //     Node *p = head;
 //     cout << endl;
 //     while(p){
-//         cout << p->val << " ";
+//         cout << p->data << " ";
 //         p = p->next;
 //     }
 //     return 0;
@@ -348,7 +444,7 @@ int main()
 
 // struct Node
 // {
-//     int val;
+//     int data;
 //     Node *next;
 // };
 
@@ -360,11 +456,11 @@ int main()
 
 //     Node *p = head, *last = nullptr;
 //     Node *node = new Node();
-//     node->val = x;
-//     if (isOdd){while (p && p->val % 2 && p->val < x){last = p;p = p->next;}}
+//     node->data = x;
+//     if (isOdd){while (p && p->data % 2 && p->data < x){last = p;p = p->next;}}
 //     else{
-//         while (p && p->val % 2){last = p;p = p->next;}
-//         while (p && p->val > x){last = p;p = p->next;}
+//         while (p && p->data % 2){last = p;p = p->next;}
+//         while (p && p->data > x){last = p;p = p->next;}
 //     }
 //     if (last){last->next = node,node->next = p;}
 //     else{node->next = head,head = node;}
@@ -380,7 +476,7 @@ int main()
 //     {
 //         cin >> data;
 //         Node *p = new Node();
-//         p->val = data;
+//         p->data = data;
 //         if (head != nullptr){last->next = p, last = p;}
 //         else{head = p, last = head;}
 //         len = len - 1;
@@ -392,14 +488,14 @@ int main()
 //     Node *p = head;
 //     while (p != nullptr)
 //     {
-//         if (p->val == x){cout << "Duplicates are not allowed" << endl;return 0;}
+//         if (p->data == x){cout << "Duplicates are not allowed" << endl;return 0;}
 //         p = p->next;
 //     }
 //     head = insertElement(head, x);
 
 //     p = head;
 //     while(p) {
-//         cout << p->val << " ";
+//         cout << p->data << " ";
 //         p = p->next;
 //     }
 
@@ -538,7 +634,7 @@ int main()
 
 // // struct node
 // // {
-// //     int val;
+// //     int data;
 // //     node *next;
 // // };
 
@@ -569,7 +665,7 @@ int main()
 // //         int x;
 // //         cin >> x;
 // //         node *temp = new node;
-// //         temp->val = x;
+// //         temp->data = x;
 // //         temp->next = head;
 // //         head = temp;
 // //     }
@@ -578,7 +674,7 @@ int main()
 // //     int count = 0;
 // //     while (p)
 // //     {
-// //         if (isPrime(p->val))
+// //         if (isPrime(p->data))
 // //             ++count;
 // //         p = p->next;
 // //     }
