@@ -1,5 +1,38 @@
 // https://www.hackerrank.com/contests/cse205-16915-day23/challenges/linkedlist-deletion-1-28066
 
+// Stack
+
+#include <bits/stdc++.h>
+using namespace std ;
+
+int main () {
+    stack<string> st, t;
+    int ch, x;
+    while(cin >> ch) {
+        if (ch == 1) {
+            cin >> x;
+            string k;
+            while(x--){
+                cin >> k;
+                st.push(k);
+            }
+        }
+        else {
+            cout << st.top() << endl;
+            st.pop();
+        }
+    }
+    while(st.size()) {
+        t.push(st.top());
+        st.pop();
+    }
+    while(t.size()){
+        cout << t.top() << endl;
+        t.pop();
+    }
+    return 0;
+}
+
 // #include <bits/stdc++.h>
 // using namespace std ;
 
@@ -48,51 +81,51 @@
 
 // https://www.hackerrank.com/contests/cse205-16915-day23/challenges/circularlinkedlist-2-26108
 
-#include <bits/stdc++.h>
-using namespace std ;
+// #include <bits/stdc++.h>
+// using namespace std ;
 
-struct node {
-    int data;
-    node * next;
-    node():data(0), next(nullptr){}
-    node(int data):data(data), next(nullptr){}
-};
+// struct node {
+//     int data;
+//     node * next;
+//     node():data(0), next(nullptr){}
+//     node(int data):data(data), next(nullptr){}
+// };
 
-int main () {
-    int n, x;
-    cin >> n;
-    node * head = nullptr, *prev = nullptr;
-    while (n--) {
-        cin >> x ;
-        node *p = new node(x);
-        if (head != nullptr) {prev->next = p,prev = p;}
-        else {head = p,prev = head;}
-    }
+// int main () {
+//     int n, x;
+//     cin >> n;
+//     node * head = nullptr, *prev = nullptr;
+//     while (n--) {
+//         cin >> x ;
+//         node *p = new node(x);
+//         if (head != nullptr) {prev->next = p,prev = p;}
+//         else {head = p,prev = head;}
+//     }
 
-    node *a = nullptr, *b = nullptr;
-    node *p = head;
-    while(p) {
-        if (p->data % 2 == 0) {
-            node *q = new node(p->data);
-            if (a != nullptr) {b->next = q,b = q;}
-            else {a = q,b = a;}
-        }
-        p = p->next;
-    }
+//     node *a = nullptr, *b = nullptr;
+//     node *p = head;
+//     while(p) {
+//         if (p->data % 2 == 0) {
+//             node *q = new node(p->data);
+//             if (a != nullptr) {b->next = q,b = q;}
+//             else {a = q,b = a;}
+//         }
+//         p = p->next;
+//     }
 
-    p = a;
-    while(p) {
-        p = p->next;
-        b = a;
-        while(b && b != p) {
-            cout << b->data << " ";
-            b = b->next;
-        }
-        cout << "\n";
-    }
+//     p = a;
+//     while(p) {
+//         p = p->next;
+//         b = a;
+//         while(b && b != p) {
+//             cout << b->data << " ";
+//             b = b->next;
+//         }
+//         cout << "\n";
+//     }
 
-    return 0;
-}
+//     return 0;
+// }
 
 
 // https://www.hackerrank.com/contests/cse205-16915-day17/challenges/twowaylinkedlistdeletion1
