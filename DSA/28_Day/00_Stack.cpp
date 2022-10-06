@@ -16,15 +16,13 @@ int main () {
             }
         }
         else {
-            int temp = x;
-            while(st.size() && temp--) {
-                cout << st.top() << endl;
-                st.pop();
-            }
+            cout << st.top() << endl;
+            st.pop();
+            break;
         }
     }
     while(st.size()) {
-        cout << st.top() << endl;
+        cout << st.top() << " ";
         st.pop();
     }
     return 0;
