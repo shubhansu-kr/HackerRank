@@ -1,37 +1,80 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int solve(int N, string S)
+{
+    // Write your code here
+    int count = 0, ans = INT_MAX;
+    for (auto &it : S){if (it == 'A') ++count;}
+    for (int i = 0; i < N; ++i)
+    {
+        int j = i, sw = 0;
+        for (int k = 0; k < count; ++k)
+        {
+            if (S[j] == 'D') ++sw;
+            j = (j + 1)%N;
+        }
+        if (sw == 0) return sw;
+        ans = min(sw, ans);
+    }
+    return ans;
+}
+
+int main()
+{
+
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    int T;
+    cin >> T;
+    for (int t_i = 0; t_i < T; t_i++)
+    {
+        int N;
+        cin >> N;
+        string S;
+        cin >> S;
+
+        int out_;
+        out_ = solve(N, S);
+        cout << out_;
+        cout << "\n";
+    }
+}
+
 // https://www.hackerrank.com/contests/cse205-16915-day23/challenges/linkedlist-deletion-1-28066
 
 // Stack
 
-#include <bits/stdc++.h>
-using namespace std ;
+// #include <bits/stdc++.h>
+// using namespace std ;
 
-int main () {
-    stack<string> st, t;
-    int ch, x;
-    while(cin >> ch) {
-        if (ch == 1) {
-            cin >> x;
-            string k;
-            while(x--){
-                cin >> k;
-                st.push(k);
-            }
-        }
-        else {
-            cout << st.top() << endl;
-            st.pop();
-        }
-    }
-    while(st.size()) {
-        t.push(st.top());
-        st.pop();
-    }
-    while(t.size()){
-        cout << t.top() << endl;
-        t.pop();
-    }
-    return 0;
-}
+// int main () {
+//     stack<string> st, t;
+//     int ch, x;
+//     while(cin >> ch) {
+//         if (ch == 1) {
+//             cin >> x;
+//             string k;
+//             while(x--){
+//                 cin >> k;
+//                 st.push(k);
+//             }
+//         }
+//         else {
+//             cout << st.top() << endl;
+//             st.pop();
+//         }
+//     }
+//     while(st.size()) {
+//         t.push(st.top());
+//         st.pop();
+//     }
+//     while(t.size()){
+//         cout << t.top() << endl;
+//         t.pop();
+//     }
+//     return 0;
+// }
 
 // #include <bits/stdc++.h>
 // using namespace std ;
@@ -66,9 +109,9 @@ int main () {
 //         p = p->next;
 //     }
 //     if(last) {last->next = target->next;}
-//     else {head = head->next;} 
+//     else {head = head->next;}
 //     delete(target);
- 
+
 //     p = head;
 //     while(p) {
 //         cout << p->data << " ";
@@ -126,7 +169,6 @@ int main () {
 
 //     return 0;
 // }
-
 
 // https://www.hackerrank.com/contests/cse205-16915-day17/challenges/twowaylinkedlistdeletion1
 
