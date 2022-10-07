@@ -5,8 +5,35 @@ int solve(int N, string S)
 {
     // Write your code here
     int count = 0, ans = INT_MAX;
-    for (auto &it : S){if (it == 'A') ++count;}
+    int st = -1, ed = -1, len = 0, maxLen = INT_MIN, a = 0, b = 0, dlen = 0;
     for (int i = 0; i < N; ++i)
+    {
+        if (S[i] == 'A') ++count;
+        if (S[i] == 'A') {
+            b = 0;
+            ++len;
+            if (!a){a = i;}
+        }
+        else {
+            if (len > maxLen) {st = a;ed = i-1;}
+            if (!b) ++dlen;
+            len = a = 0;
+            b = 1;
+        }
+    }    
+    if (len && len > maxLen){st = a;ed = N-1;}
+
+    if (count == 0 || count == 1 || dlen == 1 || maxLen == count){
+        return 0;
+    }
+
+    int diff = count - maxLen;
+
+    a = st - diff;
+    if (a < 0) a = N + a;
+    b = (b + diff) % N;
+
+    for (int i = 1; i != b;)
     {
         int j = i, sw = 0;
         for (int k = 0; k < count; ++k)
@@ -16,6 +43,7 @@ int solve(int N, string S)
         }
         if (sw == 0) return sw;
         ans = min(sw, ans);
+        i = (i+1)%N;
     }
     return ans;
 }
