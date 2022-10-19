@@ -1,73 +1,152 @@
 #include <bits/stdc++.h>
+
 using namespace std;
-
-int solve(int N, string S)
+struct node
 {
-    // Write your code here
-    int count = 0, ans = INT_MAX;
-    int st = -1, ed = -1, len = 0, maxLen = INT_MIN, a = 0, b = 0, dlen = 0;
-    for (int i = 0; i < N; ++i)
+    int data;
+    node *next;
+    node(int d)
     {
-        if (S[i] == 'A') ++count;
-        if (S[i] == 'A') {
-            b = 0;
-            ++len;
-            if (!a){a = i;}
-        }
-        else {
-            if (len > maxLen) {st = a;ed = i-1;}
-            if (!b) ++dlen;
-            len = a = 0;
-            b = 1;
-        }
-    }    
-    if (len && len > maxLen){st = a;ed = N-1;}
-
-    if (count == 0 || count == 1 || dlen == 1 || maxLen == count){
-        return 0;
+        data = d;
+        next = NULL;
     }
+};
 
-    int diff = count - maxLen;
-
-    a = st - diff;
-    if (a < 0) a = N + a;
-    b = (b + diff) % N;
-
-    for (int i = 1; i != b;)
+void addn(node *&head, node *&tail)
+{
+    if (head == NULL)
     {
-        int j = i, sw = 0;
-        for (int k = 0; k < count; ++k)
+        int x;
+        cin >> x;
+        head = new node(x);
+        tail = head;
+    }
+    else
+    {
+        int x;
+        cin >> x;
+        node *temp = new node(x);
+        tail->next = temp;
+        tail = temp;
+    }
+}
+void ad(node *&head, node *&tail)
+{
+    node *cur = head;
+    node *curr = head->next;
+    while (curr->next != NULL)
+    {
+        if (cur->next->data == curr->next->data)
         {
-            if (S[j] == 'D') ++sw;
-            j = (j + 1)%N;
+            int d = cur->data + curr->next->next->data;
+            node *temp = new node(d);
+            temp->next = curr->next;
+            curr->next = temp;
         }
-        if (sw == 0) return sw;
-        ans = min(sw, ans);
-        i = (i+1)%N;
+        curr = curr->next;
+        cur = cur->next;
     }
-    return ans;
 }
 
+void print(node *&head, node *&tail)
+{
+    node *curr = head;
+    while (curr != NULL)
+    {
+        cout << curr->data << " ";
+        curr = curr->next;
+    }
+}
 int main()
 {
-
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    int T;
-    cin >> T;
-    for (int t_i = 0; t_i < T; t_i++)
+    int n;
+    cin >> n;
+    if (n < 5 || n > 9)
     {
-        int N;
-        cin >> N;
-        string S;
-        cin >> S;
-
-        int out_;
-        out_ = solve(N, S);
-        cout << out_;
-        cout << "\n";
+        cout << "Invalid Input";
+        return 0;
     }
+    node *head = NULL;
+    node *tail = head;
+    while (n--)
+    {
+        addn(head, tail);
+    }
+    ad(head, tail);
+    print(head, tail);
+    return 0;
 }
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int solve(int N, string S)
+// {
+//     // Write your code here
+//     int count = 0, ans = INT_MAX;
+//     int st = -1, ed = -1, len = 0, maxLen = INT_MIN, a = 0, b = 0, dlen = 0;
+//     for (int i = 0; i < N; ++i)
+//     {
+//         if (S[i] == 'A') ++count;
+//         if (S[i] == 'A') {
+//             b = 0;
+//             ++len;
+//             if (!a){a = i;}
+//         }
+//         else {
+//             if (len > maxLen) {st = a;ed = i-1;}
+//             if (!b) ++dlen;
+//             len = a = 0;
+//             b = 1;
+//         }
+//     }
+//     if (len && len > maxLen){st = a;ed = N-1;}
+
+//     if (count == 0 || count == 1 || dlen == 1 || maxLen == count){
+//         return 0;
+//     }
+
+//     int diff = count - maxLen;
+
+//     a = st - diff;
+//     if (a < 0) a = N + a;
+//     b = (b + diff) % N;
+
+//     for (int i = 1; i != b;)
+//     {
+//         int j = i, sw = 0;
+//         for (int k = 0; k < count; ++k)
+//         {
+//             if (S[j] == 'D') ++sw;
+//             j = (j + 1)%N;
+//         }
+//         if (sw == 0) return sw;
+//         ans = min(sw, ans);
+//         i = (i+1)%N;
+//     }
+//     return ans;
+// }
+
+// int main()
+// {
+
+//     ios::sync_with_stdio(0);
+//     cin.tie(0);
+//     int T;
+//     cin >> T;
+//     for (int t_i = 0; t_i < T; t_i++)
+//     {
+//         int N;
+//         cin >> N;
+//         string S;
+//         cin >> S;
+
+//         int out_;
+//         out_ = solve(N, S);
+//         cout << out_;
+//         cout << "\n";
+//     }
+// }
 
 // https://www.hackerrank.com/contests/cse205-16915-day23/challenges/linkedlist-deletion-1-28066
 
