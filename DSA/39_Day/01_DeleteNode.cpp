@@ -3,16 +3,15 @@
 #include <bits/stdc++.h>
 using namespace std ;
 
-struct ListNode {
+struct node {
     int val;
-    ListNode * next;
-    ListNode():val(0), next(nullptr){}
-    ListNode(int val):val(val), next(nullptr){}
-    ListNode(int val, ListNode *next):val(val), next(next){}
+    node * next;
+    node():val(0), next(nullptr){}
+    node(int val):val(val), next(nullptr){}
 };
 
-ListNode *deleteNode (ListNode *head, int pos) {
-    ListNode *p = head, *prev = nullptr;
+node *deleteNode (node *head, int pos) {
+    node *p = head, *prev = nullptr;
     while(pos--){
         prev = p;
         p = p->next;
@@ -31,10 +30,10 @@ int main () {
     int n, x;
     cin >> n;
     int size = n;
-    ListNode * head = nullptr, *prev = nullptr;
+    node * head = nullptr, *prev = nullptr;
     while (n--) {
         cin >> x ;
-        ListNode *p = new ListNode(x);
+        node *p = new node(x);
         if (head != nullptr) {prev->next = p,prev = p;}
         else {head = p,prev = head;}
     }
@@ -51,7 +50,7 @@ int main () {
     }
 
     head = deleteNode(head, pos);
-    ListNode *p = head;
+    node *p = head;
     while(p) {
         cout << p->val<< " ";
         p = p->next;

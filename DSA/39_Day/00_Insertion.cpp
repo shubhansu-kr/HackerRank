@@ -7,104 +7,89 @@ bool isvowel(char v) {
     return (0x208222>>(v&0x1f))&1;
 }
 
-struct ListNode {
+struct node {
     char val;
-    ListNode * next;
-    ListNode():val(0), next(nullptr){}
-    ListNode(char val):val(val), next(nullptr){}
-    ListNode(char val, ListNode *next):val(val), next(next){}
+    node * next;
+    node():val(0), next(nullptr){}
+    node(char val):val(val), next(nullptr){}
 };
 
-ListNode *createList () {
-    int n; 
-    char x;
-    cin >> n;
-    ListNode * head = nullptr, *prev = nullptr;
-    while (n--) {
-        cin >> x ;
-        ListNode *p = new ListNode(x);
-        if (head != nullptr) {prev->next = p,prev = p;}
-        else {head = p,prev = head;}
-    }
-    return head;
-}
-
-ListNode * insertNode (ListNode *head, char item){
+node * insertNode (node *head, char item){
     if (!head) return nullptr;
-    ListNode *p = head, *prev = nullptr;
-    ListNode *q = new ListNode(item);
+    node *e = head, *prev = nullptr;
+    node *r = new node(item);
     if (isvowel(item)) {
-        while (p)   
+        while (e)   
         {
             if (prev){
-                if (!isvowel(prev->val) && !isvowel(p->val))
+                if (!isvowel(prev->val) && !isvowel(e->val))
                 {
-                    prev->next = q;
-                    q->next = p;
+                    prev->next = r;
+                    r->next = e;
                     return head;
                 }
             }
             else {
-                if (!isvowel(p->val)){
-                    q->next = head;
-                    return q;
+                if (!isvowel(e->val)){
+                    r->next = head;
+                    return r;
                 }
             }
-            prev = p;
-            p = p->next;
+            prev = e;
+            e = e->next;
         }
         if (!isvowel(prev->val)){
-            prev->next = q;
-            q->next = p;
+            prev->next = r;
+            r->next = e;
             return head;        
         }
     }
     else {
-        if (!p || !p->next || !p->next->next){
-            q->next = head;
-            return q;
+        if (!e || !e->next || !e->next->next){
+            r->next = head;
+            return r;
         }
         // length is greater than two now. 
         int k = 2;
-        while(p && k--) {
-            if (isvowel(p->val)){
-                q->next = head;
-                return q;
+        while(e && k--) {
+            if (isvowel(e->val)){
+                r->next = head;
+                return r;
             }
-            prev = p;
-            p = p->next;
+            prev = e;
+            e = e->next;
         }
         int flag1 = 0, flag2 = 0;
-        ListNode *a = nullptr;
+        node *a = nullptr;
         k = 2;
-        while(p) {
+        while(e) {
             k++;
-            if (isvowel(p->val)){
+            if (isvowel(e->val)){
                 if (flag1){
                     flag2 = k;
                     if (flag2 - flag1 < 3){
-                        ListNode *temp = a->next;
-                        a->next = q;
-                        q->next = a;
+                        node *temp = a->next;
+                        a->next = r;
+                        r->next = a;
                         return head;
                     }
                     else {
                         flag1 = k;
                         flag2 = 0;
-                        a = p;
+                        a = e;
                     }
                 }
                 else {
-                    a = p;
+                    a = e;
                     flag1 = k;
                 }
             }
-            prev = p;
-            p = p->next;
+            prev = e;
+            e = e->next;
         }
         if (k - flag1 < 2) {
-            q->next = a->next;
-            a->next = q;
+            r->next = a->next;
+            a->next = r;
             return head;
         }
     }
@@ -112,7 +97,17 @@ ListNode * insertNode (ListNode *head, char item){
 }
 
 int main () {
-    ListNode *head = createList();
+    int n; 
+    char element;
+    cin >> n;
+    node * head = nullptr, *prev = nullptr;
+    while (n--) {
+        cin >> element ;
+        node *e = new node(element);
+        if (head != nullptr) {prev->next = e,prev = e;}
+        else {head = e,prev = head;}
+    }
+
     char item;
     cin >> item;
 
@@ -122,10 +117,10 @@ int main () {
         return 0; 
     }
     else {
-        ListNode *p = head;
-        while(p) {
-            cout << p->val << " ";
-            p = p->next;
+        node *e = head;
+        while(e) {
+            cout << e->val << " ";
+            e = e->next;
         }
         cout << "\n";
     }
