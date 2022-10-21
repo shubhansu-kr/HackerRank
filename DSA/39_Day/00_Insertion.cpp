@@ -37,7 +37,7 @@ ListNode * insertNode (ListNode *head, char item){
         while (p)   
         {
             if (prev){
-                if (!isvowel(prev->val) && !isvowel(prev->val))
+                if (!isvowel(prev->val) && !isvowel(p->val))
                 {
                     prev->next = q;
                     q->next = p;
@@ -50,6 +50,8 @@ ListNode * insertNode (ListNode *head, char item){
                     return q;
                 }
             }
+            prev = p;
+            p = p->next;
         }
         if (!isvowel(prev->val)){
             prev->next = q;
@@ -58,7 +60,7 @@ ListNode * insertNode (ListNode *head, char item){
         }
     }
     else {
-        if (!p || !p->next || p->next->next){
+        if (!p || !p->next || !p->next->next){
             q->next = head;
             return q;
         }
@@ -73,6 +75,7 @@ ListNode * insertNode (ListNode *head, char item){
             p = p->next;
         }
         int flag1 = 0, flag2 = 0;
+        ListNode *a = nullptr;
         k = 2;
         while(p) {
             k++;
@@ -80,16 +83,19 @@ ListNode * insertNode (ListNode *head, char item){
                 if (flag1){
                     flag2 = k;
                     if (flag2 - flag1 < 3){
-                        prev->next = q;
-                        q->next = p;
+                        ListNode *temp = a->next;
+                        a->next = q;
+                        q->next = a;
                         return head;
                     }
                     else {
                         flag1 = k;
                         flag2 = 0;
+                        a = p;
                     }
                 }
                 else {
+                    a = p;
                     flag1 = k;
                 }
             }
@@ -97,7 +103,8 @@ ListNode * insertNode (ListNode *head, char item){
             p = p->next;
         }
         if (k - flag1 < 2) {
-            prev->next = q;
+            q->next = a->next;
+            a->next = q;
             return head;
         }
     }
