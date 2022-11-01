@@ -1,73 +1,45 @@
 // https://www.hackerrank.com/contests/cse205-16915-day41/challenges
 
 #include <bits/stdc++.h>
-
 using namespace std;
-
 int pi = 0;
 
-void preorder_init(int *inorder, int *postorder, int ini, int ine, stack<int> &st, map<int, int> mp)
-{
-    if (ini > ine)
-        return;
-    int num = postorder[pi];
-    int inind = mp[num];
-    pi--;
-    preorder_init(inorder, postorder, inind + 1, ine, st, mp);
-    preorder_init(inorder, postorder, ini, inind - 1, st, mp);
-    st.push(num);
-}
-
-void print_preorder(int *inorder, int *postorder, int n)
-{
-    int k = n;
-    pi = k - 1;
-    map<int, int> mp;
-    stack<int> st;
-    for (int i = 0; i < n; i++)
-        mp[inorder[i]] = i;
-    preorder_init(inorder, postorder, 0, k - 1, st, mp);
-    while (!st.empty())
-    {
-        cout << st.top() << " ";
-        st.pop();
-    }
-}
+void preorder_init(int *inorder, int *postorder, int ini, int ine, stack<int> &st, map<int, int> hashMap);
+void print_preorder(int *inorder, int *postorder, int n);
 
 int main()
 {
-    string in, post;
-    getline(cin, in);
-    getline(cin, post);
-    string ino[in.length()], posto[in.length()];
+    string inOrder, postOrder;
+    getline(cin, inOrder);
+    getline(cin, postOrder);
+    string ino[inOrder.length()], posto[inOrder.length()];
     int ini = 0;
-    string word = "";
-    for (int i = 0; i < in.length(); i++)
+    string soln = "";
+    for (int i = 0; i < inOrder.length(); i++)
     {
-        char ch = in[i];
-        if (ch != ' ')
-            word += ch;
+        char ch = inOrder[i];
+        if (ch != ' ') soln += ch;
         else
         {
-            ino[ini++] = word;
-            word = "";
+            ino[ini++] = soln;
+            soln = "";
         }
     }
-    ino[ini++] = word;
-    word = "";
+    ino[ini++] = soln;
+    soln = "";
     int posti = 0;
-    for (int i = 0; i < post.length(); i++)
+    for (int i = 0; i < postOrder.length(); i++)
     {
-        char ch = post[i];
+        char ch = postOrder[i];
         if (ch != ' ')
-            word += ch;
+            soln += ch;
         else
         {
-            posto[posti++] = word;
-            word = "";
+            posto[posti++] = soln;
+            soln = "";
         }
     }
-    posto[posti++] = word;
+    posto[posti++] = soln;
     if (ini >= 3 and ini <= 10)
     {
         int inorder[ini], postorder[posti];
@@ -96,4 +68,31 @@ int main()
     else
         cout << "Invalid input";
     return 0;
+}
+
+void print_preorder(int *inorder, int *postorder, int n)
+{
+    int k = n;
+    pi = k - 1;
+    map<int, int> hashMap;
+    stack<int> st;
+    for (int i = 0; i < n; i++)
+        hashMap[inorder[i]] = i;
+    preorder_init(inorder, postorder, 0, k - 1, st, hashMap);
+    while (!st.empty())
+    {
+        cout << st.top() << " ";
+        st.pop();
+    }
+}
+
+void preorder_init(int *inorder, int *postorder, int ini, int ine, stack<int> &st, map<int, int> hashMap)
+{
+    if (ini > ine) return;
+    int num = postorder[pi];
+    int inind = hashMap[num];
+    pi--;
+    preorder_init(inorder, postorder, inind + 1, ine, st, hashMap);
+    preorder_init(inorder, postorder, ini, inind - 1, st, hashMap);
+    st.push(num);
 }
