@@ -1,0 +1,1 @@
+# select Name from Students where Marks > 75 order by substring(Ucase(Name), -3) asc, id asc;
