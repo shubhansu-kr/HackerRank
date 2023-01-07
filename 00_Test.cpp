@@ -1,81 +1,91 @@
+// test file 
+
 #include <bits/stdc++.h>
+using namespace std ;
 
-using namespace std;
-struct node
-{
-    int data;
-    node *next;
-    node(int d)
-    {
-        data = d;
-        next = NULL;
-    }
-};
-
-void addn(node *&head, node *&tail)
-{
-    if (head == NULL)
-    {
-        int x;
-        cin >> x;
-        head = new node(x);
-        tail = head;
-    }
-    else
-    {
-        int x;
-        cin >> x;
-        node *temp = new node(x);
-        tail->next = temp;
-        tail = temp;
-    }
-}
-void ad(node *&head, node *&tail)
-{
-    node *cur = head;
-    node *curr = head->next;
-    while (curr->next != NULL)
-    {
-        if (cur->next->data == curr->next->data)
-        {
-            int d = cur->data + curr->next->next->data;
-            node *temp = new node(d);
-            temp->next = curr->next;
-            curr->next = temp;
-        }
-        curr = curr->next;
-        cur = cur->next;
-    }
-}
-
-void print(node *&head, node *&tail)
-{
-    node *curr = head;
-    while (curr != NULL)
-    {
-        cout << curr->data << " ";
-        curr = curr->next;
-    }
-}
-int main()
-{
-    int n;
-    cin >> n;
-    if (n < 5 || n > 9)
-    {
-        cout << "Invalid Input";
-        return 0;
-    }
-    node *head = NULL;
-    node *tail = head;
-    while (n--)
-    {
-        addn(head, tail);
-    }
-    ad(head, tail);
-    print(head, tail);
+int main () {
+    
     return 0;
 }
+
+// #include <bits/stdc++.h>
+
+// using namespace std;
+// struct node
+// {
+//     int data;
+//     node *next;
+//     node(int d)
+//     {
+//         data = d;
+//         next = NULL;
+//     }
+// };
+
+// void addn(node *&head, node *&tail)
+// {
+//     if (head == NULL)
+//     {
+//         int x;
+//         cin >> x;
+//         head = new node(x);
+//         tail = head;
+//     }
+//     else
+//     {
+//         int x;
+//         cin >> x;
+//         node *temp = new node(x);
+//         tail->next = temp;
+//         tail = temp;
+//     }
+// }
+// void ad(node *&head, node *&tail)
+// {
+//     node *cur = head;
+//     node *curr = head->next;
+//     while (curr->next != NULL)
+//     {
+//         if (cur->next->data == curr->next->data)
+//         {
+//             int d = cur->data + curr->next->next->data;
+//             node *temp = new node(d);
+//             temp->next = curr->next;
+//             curr->next = temp;
+//         }
+//         curr = curr->next;
+//         cur = cur->next;
+//     }
+// }
+
+// void print(node *&head, node *&tail)
+// {
+//     node *curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->data << " ";
+//         curr = curr->next;
+//     }
+// }
+// int main()
+// {
+//     int n;
+//     cin >> n;
+//     if (n < 5 || n > 9)
+//     {
+//         cout << "Invalid Input";
+//         return 0;
+//     }
+//     node *head = NULL;
+//     node *tail = head;
+//     while (n--)
+//     {
+//         addn(head, tail);
+//     }
+//     ad(head, tail);
+//     print(head, tail);
+//     return 0;
+// }
 
 // #include <bits/stdc++.h>
 // using namespace std;
